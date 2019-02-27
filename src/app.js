@@ -6,6 +6,7 @@ const morgan = require('morgan');
 const helmet = require('helmet');
 const cors = require('cors');
 const { NODE_ENV } = require('./config');
+const BookmarkService=require('./service');
 
 const app = express();
 
@@ -29,9 +30,9 @@ app.use(express.json());
 //   next();
 // });
 
-app.get('/', (req, res) => {
+app.get('/bookmark', (req, res) => {
   const db=req.app.get('db');
-  BookmarkService.getAll(db)
+  BookmarkService.getAllBookmarks(db)
     .then(bookmarks => res.json(bookmarks));
 });
 
