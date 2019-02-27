@@ -3,7 +3,7 @@
 require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
-const helmet = require('helmet');
+// const helmet = require('helmet');
 const cors = require('cors');
 const { NODE_ENV } = require('./config');
 const BookmarkService=require('./service');
@@ -17,7 +17,7 @@ const morganOption = (NODE_ENV === 'production')
 app.use(morgan(morganOption, {
   skip: () => process.env.NODE_ENV === 'test'
 }));
-app.use(helmet());
+// app.use(helmet());
 app.use(cors());
 
 app.use(express.json());
@@ -30,7 +30,7 @@ app.use(express.json());
 //   next();
 // });
 
-app.get('/bookmark', (req, res) => {
+app.get('/bookmarks', (req, res) => {
   const db=req.app.get('db');
   BookmarkService.getAllBookmarks(db)
     .then(bookmarks => res.json(bookmarks));
@@ -46,6 +46,7 @@ app.use(function ErrorHandler(error, req, res, next) {
     response = { message: error.message, error };
   }
   res.status(500).json(response);
+  next();
 });
 
 module.exports = app;
