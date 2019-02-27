@@ -86,7 +86,7 @@ bookmarkRouter
       req.params.id
     )
       .then(() => {
-        res.status(204).end();
+        res.status(204).send();
       })
       .catch(next);
   });

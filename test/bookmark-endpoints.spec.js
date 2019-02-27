@@ -91,12 +91,13 @@ describe('BookMark Endpoints', function() {
             supertest(app)
               .get('bookmarks')
               .expect(expectedBookmarks);
-          });
+          }
+          );
       });
     });
 
     context('when the db have NO bookmarks', ()=>{
-      it('responds with 404', () => {
+      it('responds with 404 when there is no bookmark', () => {
         const id=491;
         return supertest(app)
           .delete(`/bookmarks/${id}`)
