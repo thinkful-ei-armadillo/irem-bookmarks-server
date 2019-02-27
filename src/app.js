@@ -6,7 +6,7 @@ const morgan = require('morgan');
 // const helmet = require('helmet');
 const cors = require('cors');
 const { NODE_ENV } = require('./config');
-const BookmarkService=require('./service');
+const bookmarkRouter=require('./router');
 
 const app = express();
 
@@ -19,8 +19,8 @@ app.use(morgan(morganOption, {
 }));
 // app.use(helmet());
 app.use(cors());
-
 app.use(express.json());
+app.use(bookmarkRouter);
 
 // app.use((req,res,next)=> {
 //   const authToken = req.get('Authorization');
@@ -29,12 +29,6 @@ app.use(express.json());
 //   }
 //   next();
 // });
-
-app.get('/bookmarks', (req, res) => {
-  const db=req.app.get('db');
-  BookmarkService.getAllBookmarks(db)
-    .then(bookmarks => res.json(bookmarks));
-});
 
 app.use(function ErrorHandler(error, req, res, next) {
   let response;
